@@ -109,6 +109,13 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>UsersList</tabstop>
+  <tabstop>AddButton</tabstop>
+  <tabstop>EditButton</tabstop>
+  <tabstop>DeleteButton</tabstop>
+  <tabstop>UploadButton</tabstop>
+ </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>
