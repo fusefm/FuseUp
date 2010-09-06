@@ -63,21 +63,33 @@
       <item>
        <widget class="QPushButton" name="AddButton">
         <property name="text">
-         <string>Add</string>
+         <string>Add [A]</string>
+        </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="EditButton">
         <property name="text">
-         <string>Edit</string>
+         <string>Edit [F2]</string>
+        </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/icons/icons/edit.png</normaloff>:/icons/icons/edit.png</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="DeleteButton">
         <property name="text">
-         <string>Delete</string>
+         <string>Delete [Del]</string>
+        </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/icons/icons/remove.png</normaloff>:/icons/icons/remove.png</iconset>
         </property>
        </widget>
       </item>
@@ -86,6 +98,10 @@
         <property name="text">
          <string>Upload</string>
         </property>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/icons/icons/up.png</normaloff>:/icons/icons/up.png</iconset>
+        </property>
        </widget>
       </item>
      </layout>
@@ -93,6 +109,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
