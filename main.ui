@@ -19,6 +19,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QTableWidget" name="UsersList">
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="showGrid">
+         <bool>false</bool>
+        </property>
         <column>
          <property name="text">
           <string>ID Number</string>

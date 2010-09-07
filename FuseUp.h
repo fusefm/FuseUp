@@ -2,6 +2,7 @@
 #define FuseUp_H
 
 #include <QtGui/QMainWindow>
+#include <QSqlQuery>
 #include "ui_main.h"
 class FuseUp : public QMainWindow
 {
@@ -11,6 +12,8 @@ public:
     virtual ~FuseUp();
     
 private:
+
+    void showQueryError(QSqlQuery& query);
     Ui::MainWindow ui;
 };
 
