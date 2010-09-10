@@ -1,4 +1,5 @@
 #include "FuseUp.h"
+#include "useredit.h"
 
 #include <QtGui/QLabel>
 #include <QtGui/QMenu>
@@ -96,7 +97,8 @@ void FuseUp::editDatabaseUser()
 
 void FuseUp::showAddDialog()
 {
-
+  userEdit dlg(this);
+  dlg.exec();
 }
 
 void FuseUp::uploadDatabase()
