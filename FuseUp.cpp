@@ -31,41 +31,14 @@ FuseUp::FuseUp()
   
   // Create some tables and shiz.
   QSqlQuery query;
-  if(!query.exec("CREATE TABLE IF NOT EXISTS mailingLists("
-                                   "id INTEGER PRIMARY KEY,"
-                                                "name TEXT);"))
-  {
-    showQueryError(query);
-  }
-
   if(!query.exec("CREATE TABLE IF NOT EXISTS user("
                  "id TEXT,"
                  "firstName TEXT,"
                  "lastName TEXT,"
                  "phoneNumber TEXT,"
-                 "emailAddress TEXT);"))
-  {
-    showQueryError(query);
-  }
-
-  if(!query.exec("CREATE TABLE IF NOT EXISTS userMailingLists("
-                 "userID INTEGER,"
-                 "mailingListID INTEGER);"))
-  {
-    showQueryError(query);
-  }
-
-  if(!query.exec("CREATE TABLE IF NOT EXISTS merch("
-                 "id INTEGER PRIMARY KEY,"
-                 "name TEXT,"
-                 "cost INTEGER);"))
-  {
-    showQueryError(query);
-  }
-  
-  if(!query.exec("CREATE TABLE IF NOT EXISTS userMerch("
-                "userid INTEGER,"
-                "merchID INTEGER);"))
+                 "emailAddress TEXT,"
+                 "merch TEXT,"
+                 "groups TEXT);"))
   {
     showQueryError(query);
   }
@@ -82,6 +55,8 @@ FuseUp::FuseUp()
   int fIDLastName = query.record().indexOf("lastName");
   int fIDPhoneNumber = query.record().indexOf("phoneNumber");
   int fIDEmailAddress = query.record().indexOf("emailAddress");
+  int fIDMerch = query.record().indexOf("merch");
+  int fIDGroups = query.record().indexOf("groups");
 
   for(int i = 0; query.next(); i++)
   {
@@ -90,12 +65,17 @@ FuseUp::FuseUp()
     QTableWidgetItem* LastNameItem = new QTableWidgetItem(query.value(fIDLastName).toString());
     QTableWidgetItem* PhoneNumberItem = new QTableWidgetItem(query.value(fIDPhoneNumber).toString());
     QTableWidgetItem* EmailAddressItem = new QTableWidgetItem(query.value(fIDEmailAddress).toString());
+    QTableWidgetItem* MerchItem = new QTableWidgetItem(query.value(fIDMerch).toString());
+    QTableWidgetItem* GroupsItem = new QTableWidgetItem(query.value(fIDGroups).toString());
     ui.UsersList->setItem(i, 0, IDItem);
     ui.UsersList->setItem(i, 1, FirstNameItem);
     ui.UsersList->setItem(i, 2, LastNameItem);
     ui.UsersList->setItem(i, 3, PhoneNumberItem);
     ui.UsersList->setItem(i, 4, EmailAddressItem);
+    ui.UsersList->setItem(i, 5, MerchItem);
+    ui.UsersList->setItem(i, 6, GroupsItem);
   }
+  ui.UsersList->resizeColumnsToContents();
 }
 
 void FuseUp::showQueryError(QSqlQuery& query)
