@@ -44,13 +44,82 @@ FuseUp::FuseUp()
     showQueryError(query);
   }
 
+  updateUserList();
+
+  // Connect the buttons to their slots.
+  connect(ui.AddButton, SIGNAL(pressed()), this, SLOT(showAddDialog()));
+  connect(ui.EditButton, SIGNAL(pressed()), this, SLOT(editDatabaseUser()));
+  connect(ui.DeleteButton, SIGNAL(pressed()), this, SLOT(deleteDatabaseUser()));
+  connect(ui.UploadButton, SIGNAL(pressed()), this, SLOT(uploadDatabase()));
+}
+
+void FuseUp::deleteDatabaseUser()
+{
+  foreach(QTableWidgetItem* item, ui.UsersList->selectedItems())
+  {
+    if(item->column() == 0)
+    {
+      // we found the column.. delete the record...
+      if(QMessageBox::question(this, "Confirm Deletion",
+                            "Are you sure you want to delete this user?",
+                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+        return;
+      QSqlQuery query;
+      if(!query.exec("DELETE FROM user WHERE id=\'" + item->text() + "\';"))
+      {
+        showQueryError(query);
+      }
+      updateUserList();
+      return;
+    }
+  }
+}
+
+void FuseUp::editDatabaseUser()
+{
+
+}
+
+void FuseUp::showAddDialog()
+{
+  userEdit dlg(this);
+  if(dlg.exec() == QDialog::Accepted)
+  {
+    QSqlQuery query;
+    if(!query.exec("INSERT INTO user VALUES (\'" + dlg.returnData.userID + "\' , \'"  +
+                    dlg.returnData.firstName + "\', \'" + dlg.returnData.lastName + "\' , \'" +
+                    dlg.returnData.phoneNumber + "\' , \'" +  dlg.returnData.emailAddress + "\' , \'" +
+                    dlg.groupsReturnData + "\' , \'" + dlg.MerchReturnData + "\')"))
+    {
+      showQueryError(query);
+    }
+    updateUserList();
+  }
+}
+
+void FuseUp::uploadDatabase()
+{
+
+}
+
+void FuseUp::showQueryError(QSqlQuery& query)
+{
+  QMessageBox::critical(this, "SQL Error",
+                        "Error, there was a SQLITE problem: " +
+                        query.lastError().text());
+}
+
+void FuseUp::updateUserList()
+{
+  ui.UsersList->clearContents();
+  QSqlQuery query;
   // Populate the view with any retained data.
   if(!query.exec("SELECT * FROM user;"))
   {
     showQueryError(query);
   }
 
-  ui.UsersList->setRowCount(2);
+
   int fIDuserID = query.record().indexOf("id");
   int fIDFirstName = query.record().indexOf("firstName");
   int fIDLastName = query.record().indexOf("lastName");
@@ -61,6 +130,7 @@ FuseUp::FuseUp()
 
   for(int i = 0; query.next(); i++)
   {
+    ui.UsersList->setRowCount(i + 1);
     QTableWidgetItem* IDItem = new QTableWidgetItem(query.value(fIDuserID).toString());
     QTableWidgetItem* FirstNameItem = new QTableWidgetItem(query.value(fIDFirstName).toString());
     QTableWidgetItem* LastNameItem = new QTableWidgetItem(query.value(fIDLastName).toString());
@@ -77,40 +147,6 @@ FuseUp::FuseUp()
     ui.UsersList->setItem(i, 6, GroupsItem);
   }
   ui.UsersList->resizeColumnsToContents();
-
-  // Connect the buttons to their slots.
-  connect(ui.AddButton, SIGNAL(pressed()), this, SLOT(showAddDialog()));
-  connect(ui.EditButton, SIGNAL(pressed()), this, SLOT(editDatabaseUser()));
-  connect(ui.DeleteButton, SIGNAL(pressed()), this, SLOT(editDatabaseUser()));
-  connect(ui.UploadButton, SIGNAL(pressed()), this, SLOT(uploadDatabase()));
-}
-
-void FuseUp::deleteDatabaseUser()
-{
-
-}
-
-void FuseUp::editDatabaseUser()
-{
-
-}
-
-void FuseUp::showAddDialog()
-{
-  userEdit dlg(this);
-  dlg.exec();
-}
-
-void FuseUp::uploadDatabase()
-{
-
-}
-
-void FuseUp::showQueryError(QSqlQuery& query)
-{
-  QMessageBox::critical(this, "SQL Error",
-                        "Error, there was a SQLITE problem: " +
-                        query.lastError().text());
 }
 
 

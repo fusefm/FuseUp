@@ -17,7 +17,7 @@ private slots:
     void deleteDatabaseUser();
     void uploadDatabase();
 private:
-
+    void updateUserList();
     void showQueryError(QSqlQuery& query);
     Ui::MainWindow ui;
 };
