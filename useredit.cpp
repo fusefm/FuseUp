@@ -11,6 +11,7 @@ userEdit::userEdit(QWidget* parent, Qt::WindowFlags f, FuseMember* member): QDia
   connect(ui.FusePackCheck, SIGNAL(stateChanged(int)), this, SLOT(merchSelectionChanged(int)));
   connect(ui.OKButton, SIGNAL(pressed()), this, SLOT(OkButtonPress()));
   connect(ui.selectAllGroupsButton, SIGNAL(pressed()), this, SLOT(selectAllGroups()));
+  connect(ui.ClearButton, SIGNAL(pressed()), this, SLOT(reject()));
 
 
   if(member)

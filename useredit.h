@@ -28,7 +28,7 @@ class userEdit : public QDialog
   private slots:
     void merchSelectionChanged(int state);
     void OkButtonPress();
-    void selectAllGroups();
+    void selectAllGroups();    
   private:
     Ui::UserAddDialog ui;
 };
