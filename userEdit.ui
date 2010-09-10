@@ -229,12 +229,20 @@
        <property name="text">
         <string>OK</string>
        </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icons/icons/ok.png</normaloff>:/icons/icons/ok.png</iconset>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="ClearButton">
        <property name="text">
-        <string>Clear</string>
+        <string>Cancel</string>
+       </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/icons/icons/cancel.png</normaloff>:/icons/icons/cancel.png</iconset>
        </property>
       </widget>
      </item>
@@ -242,6 +250,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
