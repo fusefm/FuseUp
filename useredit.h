@@ -17,9 +17,18 @@ struct FuseMember
 
 class userEdit : public QDialog
 {
+  Q_OBJECT
   public:
     userEdit(QWidget* parent = 0, Qt::WindowFlags f = 0, FuseMember* member = 0);
+    bool pressOk;
+    FuseMember returnData;
+    QString groupsReturnData;
+    QString MerchReturnData;
 
+  private slots:
+    void merchSelectionChanged(int state);
+    void OkButtonPress();
+    void selectAllGroups();
   private:
     Ui::UserAddDialog ui;
 };
