@@ -10,7 +10,12 @@ Q_OBJECT
 public:
     FuseUp();
     virtual ~FuseUp();
-    
+
+private slots:
+    void showAddDialog();
+    void editDatabaseUser();
+    void deleteDatabaseUser();
+    void uploadDatabase();
 private:
 
     void showQueryError(QSqlQuery& query);
