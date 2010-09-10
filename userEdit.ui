@@ -7,15 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>286</height>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add / Edit User</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0,1">
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
@@ -84,91 +84,102 @@
        <property name="title">
         <string>Mailing Lists</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QCheckBox" name="ProductionCheck">
-            <property name="text">
-             <string>Production</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QCheckBox" name="DJsCheck">
+              <property name="text">
+               <string>Live DJs</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="MusicCheck">
+              <property name="text">
+               <string>Music</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="NewMusicCheck">
+              <property name="text">
+               <string>New Music</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="NewsCheck">
+              <property name="text">
+               <string>News</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="PresentersCheck">
+              <property name="text">
+               <string>Presenters</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="TVCheck">
-            <property name="text">
-             <string>Fuse TV</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="TechCheck">
-            <property name="text">
-             <string>Tech</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="PodcastingCheck">
-            <property name="text">
-             <string>Podcasting</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="EventsCheck">
-            <property name="text">
-             <string>Events</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="MarketingCheck">
-            <property name="text">
-             <string>Marketing</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QCheckBox" name="ProductionCheck">
+              <property name="text">
+               <string>Production</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="TVCheck">
+              <property name="text">
+               <string>Fuse TV</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="TechCheck">
+              <property name="text">
+               <string>Tech</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="PodcastingCheck">
+              <property name="text">
+               <string>Podcasting</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="EventsCheck">
+              <property name="text">
+               <string>Events</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="MarketingCheck">
+              <property name="text">
+               <string>Marketing</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QCheckBox" name="DJsCheck">
-            <property name="text">
-             <string>Live DJs</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="MusicCheck">
-            <property name="text">
-             <string>Music</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="NewsCheck">
-            <property name="text">
-             <string>News</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="PresentersCheck">
-            <property name="text">
-             <string>Presenters</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="NewMusicCheck">
-            <property name="text">
-             <string>New Music</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QPushButton" name="selectAllGroupsButton">
+          <property name="text">
+           <string>Select All</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
