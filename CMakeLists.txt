@@ -4,8 +4,8 @@ find_package(Qt4 REQUIRED)
 
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(FuseUp_SRCS FuseUp.cpp main.cpp)
-set(FuseUp_UI_SRCS main.ui)
+set(FuseUp_SRCS useredit.cpp FuseUp.cpp main.cpp)
+set(FuseUp_UI_SRCS main.ui userEdit.ui)
 set(FuseUp_RCS res.qrc)
 
 qt4_automoc(${FuseUp_SRCS})
