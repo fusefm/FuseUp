@@ -76,6 +76,32 @@ FuseUp::FuseUp()
     ui.UsersList->setItem(i, 6, GroupsItem);
   }
   ui.UsersList->resizeColumnsToContents();
+
+  // Connect the buttons to their slots.
+  connect(ui.AddButton, SIGNAL(pressed()), this, SLOT(showAddDialog()));
+  connect(ui.EditButton, SIGNAL(pressed()), this, SLOT(editDatabaseUser()));
+  connect(ui.DeleteButton, SIGNAL(pressed()), this, SLOT(editDatabaseUser()));
+  connect(ui.UploadButton, SIGNAL(pressed()), this, SLOT(uploadDatabase()));
+}
+
+void FuseUp::deleteDatabaseUser()
+{
+
+}
+
+void FuseUp::editDatabaseUser()
+{
+
+}
+
+void FuseUp::showAddDialog()
+{
+
+}
+
+void FuseUp::uploadDatabase()
+{
+
 }
 
 void FuseUp::showQueryError(QSqlQuery& query)
