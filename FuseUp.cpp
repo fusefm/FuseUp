@@ -1,5 +1,6 @@
 #include "FuseUp.h"
 #include "useredit.h"
+#include "uploaddialog.h"
 
 #include <QtGui/QLabel>
 #include <QtGui/QMenu>
@@ -10,6 +11,7 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <QNetworkAccessManager>
 
 FuseUp::FuseUp()
 {
@@ -22,7 +24,7 @@ FuseUp::FuseUp()
   
   // Create a database.
   QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-  QString databasePath = QDir::homePath() + "//.member.db";
+  databasePath = QDir::homePath() + "//.member.db";
   db.setDatabaseName(databasePath);
   if(!db.open())
   {
@@ -77,7 +79,53 @@ void FuseUp::deleteDatabaseUser()
 
 void FuseUp::editDatabaseUser()
 {
+  FuseMember mem;
+  foreach(QTableWidgetItem* item, ui.UsersList->selectedItems())
+  {
+    switch(item->column())
+    {
+      case(0):
+        mem.userID = item->text();
+        break;
+      case(1):
+        mem.firstName = item->text();
+        break;
+      case(2):
+        mem.lastName = item->text();
+        break;
+      case(3):
+        mem.phoneNumber = item->text();
+        break;
+      case(4):
+        mem.emailAddress = item->text();
+        break;
+      case(5):
+        mem.groups = item->text().split(" ");
+        break;
+      case(6):
+        mem.merch = item->text().split(" ");
+        break;
+    }
+  }
 
+  // Delete that ID for editing.
+  userEdit dlg(this, 0, &mem);
+  if(dlg.exec() == QDialog::Accepted)
+  {
+    QSqlQuery query;
+    if(!query.exec("UPDATE user SET id=\'" + dlg.returnData.userID + "\' ,"
+                    "firstName=\'"  + dlg.returnData.firstName + "\', "
+                    "lastName=\'" + dlg.returnData.lastName + "\' , "
+                    "phoneNumber=\'" + dlg.returnData.phoneNumber + "\' , "
+                    "emailAddress=\'" +  dlg.returnData.emailAddress + "\' ,"
+                    "groups=\'" + dlg.groupsReturnData + "\' , "
+                    "merch=\'" + dlg.MerchReturnData + "\' "
+                    "WHERE id= \'" + mem.userID + "\';"))
+    {
+      showQueryError(query);
+    }
+    updateUserList();
+  }
 }
 
 void FuseUp::showAddDialog()
@@ -100,6 +148,14 @@ void FuseUp::showAddDialog()
 void FuseUp::uploadDatabase()
 {
 
+  QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+  uploadDialog *dlg = new uploadDialog(this);
+  connect(manager, SIGNAL(finished(QNetworkReply*)), dlg, SLOT(uploadFinish(QNetworkReply*)));
+  QFile *file = new QFile(databasePath, this);
+  file->open(QFile::ReadOnly);
+  manager->post(QNetworkRequest(QUrl("http://studio.fusefm.co.uk/dbupload/upload.php")), file);
+  dlg->exec();
+  file->close();
 }
 
 void FuseUp::showQueryError(QSqlQuery& query)
@@ -138,13 +194,20 @@ void FuseUp::updateUserList()
     QTableWidgetItem* EmailAddressItem = new QTableWidgetItem(query.value(fIDEmailAddress).toString());
     QTableWidgetItem* MerchItem = new QTableWidgetItem(query.value(fIDMerch).toString());
     QTableWidgetItem* GroupsItem = new QTableWidgetItem(query.value(fIDGroups).toString());
+    IDItem->setFlags(IDItem->flags() &~ Qt::ItemIsEditable);
+    FirstNameItem->setFlags(IDItem->flags());
+    LastNameItem->setFlags(IDItem->flags());
+    PhoneNumberItem->setFlags(IDItem->flags());
+    EmailAddressItem->setFlags(IDItem->flags());
+    MerchItem->setFlags(IDItem->flags());
+    GroupsItem->setFlags(IDItem->flags());
     ui.UsersList->setItem(i, 0, IDItem);
     ui.UsersList->setItem(i, 1, FirstNameItem);
     ui.UsersList->setItem(i, 2, LastNameItem);
     ui.UsersList->setItem(i, 3, PhoneNumberItem);
     ui.UsersList->setItem(i, 4, EmailAddressItem);
-    ui.UsersList->setItem(i, 5, MerchItem);
-    ui.UsersList->setItem(i, 6, GroupsItem);
+    ui.UsersList->setItem(i, 5, GroupsItem);
+    ui.UsersList->setItem(i, 6, MerchItem);
   }
   ui.UsersList->resizeColumnsToContents();
 }

@@ -2,6 +2,7 @@
 #define USEREDIT_H
 
 #include <QtGui/QDialog>
+#include <QNetworkReply>
 #include "ui_userEdit.h"
 
 struct FuseMember
@@ -28,7 +29,7 @@ class userEdit : public QDialog
   private slots:
     void merchSelectionChanged(int state);
     void OkButtonPress();
-    void selectAllGroups();    
+    void selectAllGroups();
   private:
     Ui::UserAddDialog ui;
 };

@@ -17,6 +17,7 @@ private slots:
     void deleteDatabaseUser();
     void uploadDatabase();
 private:
+    QString databasePath;
     void updateUserList();
     void showQueryError(QSqlQuery& query);
     Ui::MainWindow ui;
