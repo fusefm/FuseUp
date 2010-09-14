@@ -2,6 +2,7 @@
 #define FuseUp_H
 
 #include <QtGui/QMainWindow>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include "ui_main.h"
 class FuseUp : public QMainWindow
@@ -20,6 +21,7 @@ private:
     QString databasePath;
     void updateUserList();
     void showQueryError(QSqlQuery& query);
+    void setupNewDatabase();
     Ui::MainWindow ui;
 };
 

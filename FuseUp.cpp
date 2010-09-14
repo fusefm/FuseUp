@@ -8,6 +8,7 @@
 #include <QtGui/QAction>
 #include <QSqlDatabase>
 #include <QDir>
+#include <QDateTime>
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -21,32 +22,8 @@ FuseUp::FuseUp()
   ui.AddButton->setShortcut(QKeySequence(Qt::Key_A));
   ui.EditButton->setShortcut(QKeySequence(Qt::Key_F2));
   ui.DeleteButton->setShortcut(QKeySequence(Qt::Key_Delete));
-  
-  // Create a database.
-  QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-  databasePath = QDir::homePath() + "//.member.db";
-  db.setDatabaseName(databasePath);
-  if(!db.open())
-  {
-    QMessageBox::critical(this, "Error opening database.", 
-			  "Error, could not open database: " + db.lastError().text());
-  }
-  
-  // Create some tables and shiz.
-  QSqlQuery query;
-  if(!query.exec("CREATE TABLE IF NOT EXISTS user("
-                 "id TEXT,"
-                 "firstName TEXT,"
-                 "lastName TEXT,"
-                 "phoneNumber TEXT,"
-                 "emailAddress TEXT,"
-                 "merch TEXT,"
-                 "groups TEXT);"))
-  {
-    showQueryError(query);
-  }
 
-  updateUserList();
+  setupNewDatabase();
 
   // Connect the buttons to their slots.
   connect(ui.AddButton, SIGNAL(pressed()), this, SLOT(showAddDialog()));
@@ -154,7 +131,25 @@ void FuseUp::uploadDatabase()
   QFile *file = new QFile(databasePath, this);
   file->open(QFile::ReadOnly);
   manager->post(QNetworkRequest(QUrl("http://studio.fusefm.co.uk/dbupload/upload.php")), file);
-  dlg->exec();
+  if(dlg->exec() == QDialog::Accepted)
+  {
+    // close the database.
+    QSqlDatabase db = QSqlDatabase::database("main");
+    db.close();
+
+    // Move the database file.
+    QDir dbDir(QDir::homePath());
+
+    // Backup the old database.
+    if(!dbDir.rename(".member.db", ".member.db." +
+                 QDateTime::currentDateTime().toString(Qt::ISODate)))
+        QMessageBox::warning(this, "Database move", "Could not backup old database.");
+
+    // Remove the old connection.
+    db.removeDatabase("main");
+
+    // Setup a new database.
+  }
   file->close();
 }
 
@@ -206,12 +201,40 @@ void FuseUp::updateUserList()
     ui.UsersList->setItem(i, 2, LastNameItem);
     ui.UsersList->setItem(i, 3, PhoneNumberItem);
     ui.UsersList->setItem(i, 4, EmailAddressItem);
-    ui.UsersList->setItem(i, 5, GroupsItem);
-    ui.UsersList->setItem(i, 6, MerchItem);
+    ui.UsersList->setItem(i, 5, MerchItem);
+    ui.UsersList->setItem(i, 6, GroupsItem);
   }
   ui.UsersList->resizeColumnsToContents();
 }
 
+void FuseUp::setupNewDatabase()
+{
+    // Create a database.
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "main");
+    databasePath = QDir::homePath() + "//.member.db";
+    db.setDatabaseName(databasePath);
+    if(!db.open())
+    {
+      QMessageBox::critical(this, "Error opening database.",
+                            "Error, could not open database: " + db.lastError().text());
+    }
+
+    // Create some tables and shiz.
+    QSqlQuery query;
+    if(!query.exec("CREATE TABLE IF NOT EXISTS user("
+                   "id TEXT,"
+                   "firstName TEXT,"
+                   "lastName TEXT,"
+                   "phoneNumber TEXT,"
+                   "emailAddress TEXT,"
+                   "merch TEXT,"
+                   "groups TEXT);"))
+    {
+      showQueryError(query);
+    }
+
+    updateUserList();
+}
 
 FuseUp::~FuseUp()
 {} 
