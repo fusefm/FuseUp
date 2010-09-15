@@ -130,7 +130,7 @@ void FuseUp::uploadDatabase()
   connect(manager, SIGNAL(finished(QNetworkReply*)), dlg, SLOT(uploadFinish(QNetworkReply*)));
   QFile *file = new QFile(databasePath, this);
   file->open(QFile::ReadOnly);
-  manager->post(QNetworkRequest(QUrl("http://studio.fusefm.co.uk/dbupload/upload.php")), file);
+  manager->post(QNetworkRequest(QUrl("http://studio.fusefm.co.uk/filmsoc/upload.php")), file);
   if(dlg->exec() == QDialog::Accepted)
   {
     // close the database.
