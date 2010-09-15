@@ -43,7 +43,7 @@ void FuseUp::deleteDatabaseUser()
                             "Are you sure you want to delete this user?",
                                QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
         return;
-      QSqlQuery query;
+      QSqlQuery query(QSqlDatabase::database("main"));
       if(!query.exec("DELETE FROM user WHERE id=\'" + item->text() + "\';"))
       {
         showQueryError(query);
@@ -89,7 +89,7 @@ void FuseUp::editDatabaseUser()
   userEdit dlg(this, 0, &mem);
   if(dlg.exec() == QDialog::Accepted)
   {
-    QSqlQuery query;
+    QSqlQuery query(QSqlDatabase::database("main"));
     if(!query.exec("UPDATE user SET id=\'" + dlg.returnData.userID + "\' ,"
                     "firstName=\'"  + dlg.returnData.firstName + "\', "
                     "lastName=\'" + dlg.returnData.lastName + "\' , "
@@ -110,7 +110,7 @@ void FuseUp::showAddDialog()
   userEdit dlg(this);
   if(dlg.exec() == QDialog::Accepted)
   {
-    QSqlQuery query;
+    QSqlQuery query(QSqlDatabase::database("main"));
     if(!query.exec("INSERT INTO user VALUES (\'" + dlg.returnData.userID + "\' , \'"  +
                     dlg.returnData.firstName + "\', \'" + dlg.returnData.lastName + "\' , \'" +
                     dlg.returnData.phoneNumber + "\' , \'" +  dlg.returnData.emailAddress + "\' , \'" +
@@ -146,9 +146,10 @@ void FuseUp::uploadDatabase()
         QMessageBox::warning(this, "Database move", "Could not backup old database.");
 
     // Remove the old connection.
-    db.removeDatabase("main");
+    QSqlDatabase::removeDatabase("main");
 
     // Setup a new database.
+    setupNewDatabase();
   }
   file->close();
 }
@@ -163,7 +164,7 @@ void FuseUp::showQueryError(QSqlQuery& query)
 void FuseUp::updateUserList()
 {
   ui.UsersList->clearContents();
-  QSqlQuery query;
+  QSqlQuery query(QSqlDatabase::database("main"));
   // Populate the view with any retained data.
   if(!query.exec("SELECT * FROM user;"))
   {
@@ -220,7 +221,7 @@ void FuseUp::setupNewDatabase()
     }
 
     // Create some tables and shiz.
-    QSqlQuery query;
+    QSqlQuery query(QSqlDatabase::database("main"));
     if(!query.exec("CREATE TABLE IF NOT EXISTS user("
                    "id TEXT,"
                    "firstName TEXT,"
