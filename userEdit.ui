@@ -90,23 +90,16 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QCheckBox" name="DJsCheck">
+             <widget class="QCheckBox" name="FictonCheck">
               <property name="text">
-               <string>Live DJs</string>
+               <string>Fiction</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="MusicCheck">
+             <widget class="QCheckBox" name="DocumentaryCheck">
               <property name="text">
-               <string>Music</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="NewMusicCheck">
-              <property name="text">
-               <string>New Music</string>
+               <string>Documentary</string>
               </property>
              </widget>
             </item>
@@ -118,55 +111,23 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="PresentersCheck">
+             <widget class="QCheckBox" name="EntertainmentCheck">
               <property name="text">
-               <string>Presenters</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QCheckBox" name="ProductionCheck">
-              <property name="text">
-               <string>Production</string>
+               <string>Entertainment</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="TVCheck">
+             <widget class="QCheckBox" name="ActorsCheck">
               <property name="text">
-               <string>Fuse TV</string>
+               <string>Actors</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="TechCheck">
+             <widget class="QCheckBox" name="CrewCheck">
               <property name="text">
-               <string>Tech</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="PodcastingCheck">
-              <property name="text">
-               <string>Podcasting</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="EventsCheck">
-              <property name="text">
-               <string>Events</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="MarketingCheck">
-              <property name="text">
-               <string>Marketing</string>
+               <string>Crew</string>
               </property>
              </widget>
             </item>
@@ -191,30 +152,9 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QCheckBox" name="WristBandCheck">
-          <property name="text">
-           <string>Wrist Band (£1)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="TShirtCheck">
-          <property name="text">
-           <string>T-shirt (£6)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QCheckBox" name="MembershipCheck">
           <property name="text">
            <string>Membership (£5)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="FusePackCheck">
-          <property name="text">
-           <string>Fuse Pack (£10)</string>
           </property>
          </widget>
         </item>
